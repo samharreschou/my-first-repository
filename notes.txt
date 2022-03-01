@@ -1,0 +1,296 @@
+NOTES:
+
+
+
+Extract the pertinent info from the problem:
+
+
+ex:
+input:
+  -one or more words
+  -sep by one or more spces
+  -terminated by zero or more spaces -followed by a point
+-words: one or more char up to 20
+-possible chars in input are letters, spaces, and point
+
+outptu:
+  sentence of words with every other word reversed
+    -reversed words are even numbered so odd indexed
+  -words sep by one more space
+  -sentence terminated by zero spaces then a point
+
+EX:
+"whats the matter with kansas." -> "whats eht matter htiw kansas."
+
+WORKING WITH IMPLICIT REQUIREMENTS:
+
+need to be modeled in some way to make explicit
+
+sometimes shown with examples or demonstrated with expected output
+
+or there is also implicit knowledge that is used
+
+or there can be important terms / concepts
+
+REQ SHOWN WITH EXAMPLES:
+diamond problem:
+requirements:
+
+input:
+-integer n
+-what form? assume int not string
+-must be odd
+-can be negative? assume no
+
+
+
+output:
+-any blank line separators needed? assume no
+-console display (either line by line display or display one large string)
+-whats displayed is series of strings composed of asterics and spaces
+-number of asterics follows pattern from first to last display of:
+  -one asteric, 3 *'s, ... all the way to 'n' asterics incrmeneting by 2
+  -once n is reached go back down decrementing by 2 until you reach 1 asteric
+-spaces are symmetrically placed on either side of the asterics for any given line such that the total number of spaces + number of asterics
+  equals n on all lines
+  -ex: first printed line: 1 asteric, 8 spaces -> 9 total char  and n is 9
+-spaces are symettric so in above example you have 4 spaces on either side of the one asteric
+
+
+
+another ex:
+centry problem:
+write a func that takes an integer year as an input and returns the century. the return value should be a string that
+begins with the century number and ends with st, nd, rd, or th as appropriate for that number
+
+new centuries begin in years that end with 01 so the years 1901 to 2000 comprise the 20th century
+
+requirements:
+input:
+what happens with null inputs
+are strings valid inputs etc
+can integer year have leading zeros? yes000
+integer year
+does it have to be positive assume yes
+can it be 0? and is there a 0th century? assume yes
+is there an upper limit to the number of centuries (what happens when we get to the next level for instance like the ten thousands?) assume this is valid input
+
+output:
+it is a string with the century that integer year belongs to
+follows convention that century ranges are from the first year to the 0th year of the next century
+string is concatenation of the thousands and hundreds place of the integer converted to a string
+  with the appropriate suffix
+appropriate suffixes are:
+
+  1: st
+  2: nd
+  3: rd
+  4-9, 0: th
+  exceptions: 11th, 12th
+assume that the format is as such '19th'
+
+
+test cases:
+happy path:
+century(2021) -> '21st'
+century(1995) -> '20th'
+century(240) -> '3rd'
+century(2140) -> '22nd'
+
+things tested:
+//past vs future, present
+//edge cases at 2000, 2001, 1999 (sort of)
+//exceptions with 11th and 12th and 13th
+//different number of digits (1, 2 digit, 3 digit,4, 5 )
+
+edge cases:
+century(2000) -> '20th'
+century(2001) -> '21st'
+century(1250) -> '11th'
+century(1350) -> '12th'
+century(2250) -> '23rd'
+century(05) -> '1st'
+century(00005) -> '1st'
+century(0) -> '0th'
+century(12501) -> '126th'
+
+ex:
+
+write a program that given a word copmutes the scrabble score for that word
+
+input:
+string (all caps or can be lower?)
+can there be other datatypes/how to handle
+are there only letters?
+will it be a single word?
+
+output:
+number score (verify integer)
+display or return?
+
+ex:
+
+in the game of chess a quieen can attack pieces ...
+
+input:
+string with format (int0-8,int0-8)
+black piece or white piece first ?
+need to know ordering of the coordinate numbers (or maybe not?)
+need to know if zero indexed(or maybe not?)
+
+
+
+output:
+same row/col means same first or same second number, same diagonal means that (abs(x1-x2) === abs(y1-y2))
+true or false (boolean or can be truthy?)
+on whether can attack:
+  -need to know the rules of what a queen can do (move diagonally or straight)
+
+chess((1,1),(0,0)) -> true
+chess((1,1),(1,0)) -> true
+chess((1,1),(0,1)) -> true
+chess((2,6),(4,4)) -> true
+chess((3,6),(4,4)) -> false
+
+
+in score computation what happens with occurences of multiple of the same letter
+
+
+EXAMPLES AND TESTCASES:
+
+allow you to help / verify your understanding of the problem
+-also allow you to verify your solution
+
+happy paths = comb of requirments to produce obvious result
+edge cases:
+-empty input , empty strings, or arrays
+-boundary conditions
+-repeat/dup values
+-data-type specific considerations (like capitalization)
+
+how to deal with failure cases/ bad input
+
+ask even if obvious
+
+
+write a program that takes a word problem and returns the answer as an integer:
+
+what is 5 plus 13?
+What is 7 minus 5
+
+
+data structures:
+input: string
+rules:
+  regex operation on the input to retrieve the numbers (including sign)
+  regex to retrieve operation (lookup table object for operation key)
+
+  regex match returns list with two numbers
+  regex match returns list with one operation
+  then take the first element of each list and convert the number to strings apply the operation between them return result
+
+function wd(str) {
+  let numbers = str.match(reg);//str.match(/([\-]?[\d]+){2,2}/)//.map(elem => Number(elem));
+  console.log(numbers)
+  let operation = str.match(/minus|plus|divided|multiplied/);
+  console.log(operation)
+  numbers = numbers.map(elem => Number(elem))
+  console.log(numbers)
+
+  const operations = {
+    minus: (x,y) => x - y,
+    plus: (x,y) => x + y,
+    divided: (x,y) => x/y,
+    multiplied: (x,y) => x*y
+  };
+  let operationDo = operations[operation];
+  console.log(operationDo)
+  return operationDo(numbers[0],numbers[1])
+}
+
+  table:
+    minus: -
+    multiply: *
+    divide: / include rounding rules
+
+
+output: integer or number
+
+logFuncArgsArr
+
+let tests = {
+  2:4,
+  4:16,
+  3:9,
+};
+
+function mapCheck(obj, fn) {
+  Object.entries(obj).map(entry => {
+    console.log(fn(entry[0]), entry[1], fn(entry[0]) === entry[1])
+  })
+}
+
+
+
+function logAll3() {
+  let func = arguments[0];
+  [...arguments].slice(1).forEach(x => console.log(func(x)))
+};
+
+function log(str) {
+  console.log(str)
+};
+
+const logAll = arr => [arr.forEach(elem => console.log(elem));
+
+function logAll1(args) {
+  args.forEach(console.log)
+}
+logAll()
+
+
+const log = str => console.log(str);
+
+
+Data Structure
+  - input data
+  - rules/requirements as data
+    - hash/object
+
+  - string, array, hash/object, number
+    - string
+      - concat, strip, reverse, etc.
+      - Regular Expression! split, replace, match...
+    - array
+      - need to walk through it (iteration)
+      - index
+      - abstractions!!
+        - map
+        - reduce
+        - select/filter
+        - all
+        - ...
+    - hash/object
+      - lookup table / dictionary
+      - partition data for more efficient access downstream
+      - digest
+    - number
+      - math operations
+      - number as string may have advantage over numbers
+  - compound data structures
+    - array of arrays
+    - hash with array/object values, etc.
+
+Algorithm
+  - algorithms have to be described in the language of chosen data structure!
+    - "then solve it" doesn't count
+  - have to be really fluent with
+    - String / Regex
+    - Array
+      - Ruby: Enumerable
+      - JavaScript: Higher-Order Functions
+    - Hash / Object
+      - Creation (default values)
+      - Access (default values)
+      - Iteration
+  - verify your algorithm with your examples / test cases
